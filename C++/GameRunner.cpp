@@ -1,4 +1,6 @@
 ﻿#include <stdlib.h>
+#include <ctime>
+
 #include "Game.h"
 
 static bool notAWinner;
