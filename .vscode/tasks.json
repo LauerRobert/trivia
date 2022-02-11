@@ -1,0 +1,46 @@
+{
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "type": "cppbuild",
+         "label": "Task 0 clang++.exe build project",
+         "command": "C:\\Program Files\\LLVM\\bin\\clang++.exe",
+         "args": [
+            "-std=c++17",
+            "-stdlib=libc++",
+            "-fdiagnostics-color=always",
+            "-g",
+            "**.cpp",
+            "-o",
+            "${fileDirname}\\GameRunner.exe"
+         ],
+         "options": {
+            "cwd": "${fileDirname}"
+         },
+         "problemMatcher": [
+            "$gcc"
+         ],
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         },
+         "detail": "compiler: \"C:\\Program Files\\LLVM\\bin\\clang++.exe\""
+      },
+      {
+         "type": "cppbuild",
+         "label": "Task 0 GoldMaster",
+         "command": "python",
+         "args": [
+            "../GoldMaster/runExecutable.py"
+         ],
+         "options": {
+            "cwd": "${fileDirname}"
+         },
+         "group": {
+            "kind": "test",
+            "isDefault": true
+         },
+         "dependsOn": "Task 0 clang++.exe build project"
+      }
+   ]
+}

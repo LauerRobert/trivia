@@ -5,10 +5,9 @@
 
 static bool notAWinner;
 
-int main()
+void runGame(int seed)
 {
-
-   srand(time(NULL));
+   srand(seed);
    Game aGame;
 
    aGame.add("Chet");
@@ -29,4 +28,19 @@ int main()
          notAWinner = aGame.wasCorrectlyAnswered();
       }
    } while (notAWinner);
+}
+
+int main(int argc, char *argv[])
+{
+   for (int i = 1; i < argc; ++i)
+   {
+      int seed = static_cast<int>(*argv[i] - '0');
+      std::cout << "seed: " << seed << '\n';
+
+      runGame(seed);
+
+      std::cout << '\n'
+                << '\n';
+   }
+   std::cout << "argc: " << argc;
 }
