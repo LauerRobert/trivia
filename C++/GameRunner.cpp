@@ -1,5 +1,5 @@
-﻿#include <stdlib.h>
-#include <ctime>
+﻿#include <ctime>
+#include <stdlib.h>
 
 #include "Game.h"
 
