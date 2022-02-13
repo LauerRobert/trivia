@@ -2,6 +2,8 @@
 #include <list>
 #include <vector>
 
+#include "Questionnaire.h"
+
 #ifndef GAME_H_
 #define GAME_H_
 
@@ -16,10 +18,7 @@ private:
 
    bool inPenaltyBox[6];
 
-   std::list<std::string> popQuestions;
-   std::list<std::string> scienceQuestions;
-   std::list<std::string> sportsQuestions;
-   std::list<std::string> rockQuestions;
+   Questionnaire m_questionnaire;
 
    unsigned int currentPlayer;
    bool isGettingOutOfPenaltyBox;

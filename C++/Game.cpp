@@ -12,17 +12,17 @@ Game::Game() : places{}, purses{}, currentPlayer(0)
       std::ostringstream oss(std::ostringstream::out);
       oss << "Pop Question " << i;
 
-      popQuestions.push_back(oss.str());
+      this->m_questionnaire.popQuestions.push_back(oss.str());
 
       char str[255];
       sprintf(str, "Science Question %d", i);
-      scienceQuestions.push_back(str);
+      this->m_questionnaire.scienceQuestions.push_back(str);
 
       char str1[255];
       sprintf(str1, "Sports Question %d", i);
-      sportsQuestions.push_back(str1);
+      this->m_questionnaire.sportsQuestions.push_back(str1);
 
-      rockQuestions.push_back(createRockQuestion(i));
+      this->m_questionnaire.rockQuestions.push_back(createRockQuestion(i));
    }
 }
 
@@ -98,23 +98,23 @@ void Game::askQuestion()
 {
    if (currentCategory() == "Pop")
    {
-      std::cout << popQuestions.front() << std::endl;
-      popQuestions.pop_front();
+      std::cout << this->m_questionnaire.popQuestions.front() << std::endl;
+      this->m_questionnaire.popQuestions.pop_front();
    }
    if (currentCategory() == "Science")
    {
-      std::cout << scienceQuestions.front() << std::endl;
-      scienceQuestions.pop_front();
+      std::cout << this->m_questionnaire.scienceQuestions.front() << std::endl;
+      this->m_questionnaire.scienceQuestions.pop_front();
    }
    if (currentCategory() == "Sports")
    {
-      std::cout << sportsQuestions.front() << std::endl;
-      sportsQuestions.pop_front();
+      std::cout << this->m_questionnaire.sportsQuestions.front() << std::endl;
+      this->m_questionnaire.sportsQuestions.pop_front();
    }
    if (currentCategory() == "Rock")
    {
-      std::cout << rockQuestions.front() << std::endl;
-      rockQuestions.pop_front();
+      std::cout << this->m_questionnaire.rockQuestions.front() << std::endl;
+      this->m_questionnaire.rockQuestions.pop_front();
    }
 }
 
