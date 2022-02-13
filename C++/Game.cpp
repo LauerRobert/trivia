@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,30 +6,7 @@
 
 Game::Game() : places{}, purses{}, currentPlayer(0)
 {
-   for (int i = 0; i < 50; i++)
-   {
-      std::ostringstream oss(std::ostringstream::out);
-      oss << "Pop Question " << i;
 
-      this->m_questionnaire.popQuestions.push_back(oss.str());
-
-      char str[255];
-      sprintf(str, "Science Question %d", i);
-      this->m_questionnaire.scienceQuestions.push_back(str);
-
-      char str1[255];
-      sprintf(str1, "Sports Question %d", i);
-      this->m_questionnaire.sportsQuestions.push_back(str1);
-
-      this->m_questionnaire.rockQuestions.push_back(createRockQuestion(i));
-   }
-}
-
-std::string Game::createRockQuestion(int index)
-{
-   char indexStr[127];
-   sprintf(indexStr, "Rock Question %d", index);
-   return indexStr;
 }
 
 bool Game::isPlayable()
