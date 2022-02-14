@@ -11,24 +11,24 @@ class Game
 {
 
 private:
-   std::vector<std::string> players;
+   std::vector<std::string> m_players;
 
-   int places[6];
-   int purses[6];
+   int m_places[6];
+   int m_purses[6];
 
-   bool inPenaltyBox[6];
+   bool m_inPenaltyBox[6];
 
    Questionnaire m_questionnaire;
 
-   unsigned int currentPlayer;
-   bool isGettingOutOfPenaltyBox;
+   unsigned int m_currentPlayer;
+   bool m_isGettingOutOfPenaltyBox;
 
 public:
    Game();
 
    bool isPlayable();
    bool add(std::string playerName);
-   int howManyPlayers();
+   int getPlayerCount();
    void roll(int roll);
 
    bool wasCorrectlyAnswered();

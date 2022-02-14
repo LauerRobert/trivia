@@ -4,30 +4,30 @@
 
 #include "Game.h"
 
-Game::Game() : places{}, purses{}, currentPlayer(0)
+Game::Game() : m_places{}, m_purses{}, m_currentPlayer(0)
 {
 }
 
 bool Game::isPlayable()
 {
-   return (howManyPlayers() >= 2);
+   return (getPlayerCount() >= 2);
 }
 
 bool Game::add(std::string playerName)
 {
-   players.push_back(playerName);
-   places[howManyPlayers()] = 0;
-   purses[howManyPlayers()] = 0;
-   inPenaltyBox[howManyPlayers()] = false;
+   m_players.push_back(playerName);
+   m_places[getPlayerCount()] = 0;
+   m_purses[getPlayerCount()] = 0;
+   m_inPenaltyBox[getPlayerCount()] = false;
 
    std::cout << playerName << " was added" << std::endl;
-   std::cout << "They are player number " << players.size() << std::endl;
+   std::cout << "They are player number " << m_players.size() << std::endl;
    return true;
 }
 
-int Game::howManyPlayers()
+int Game::getPlayerCount()
 {
-   return players.size();
+   return m_players.size();
 }
 
 std::string categoryToString(Category category)
@@ -47,38 +47,38 @@ std::string categoryToString(Category category)
 
 void Game::roll(int roll)
 {
-   std::cout << players[currentPlayer] << " is the current player" << std::endl;
+   std::cout << m_players[m_currentPlayer] << " is the current player" << std::endl;
    std::cout << "They have rolled a " << roll << std::endl;
 
-   if (inPenaltyBox[currentPlayer])
+   if (m_inPenaltyBox[m_currentPlayer])
    {
       if (roll % 2 != 0)
       {
-         isGettingOutOfPenaltyBox = true;
+         m_isGettingOutOfPenaltyBox = true;
 
-         std::cout << players[currentPlayer] << " is getting out of the penalty box" << std::endl;
-         places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 11)
-            places[currentPlayer] = places[currentPlayer] - 12;
+         std::cout << m_players[m_currentPlayer] << " is getting out of the penalty box" << std::endl;
+         m_places[m_currentPlayer] = m_places[m_currentPlayer] + roll;
+         if (m_places[m_currentPlayer] > 11)
+            m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
 
-         std::cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << std::endl;
+         std::cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << std::endl;
          std::cout << "The category is " << categoryToString(currentCategory()) << std::endl;
          this->m_questionnaire.askQuestion(currentCategory());
       }
       else
       {
-         std::cout << players[currentPlayer] << " is not getting out of the penalty box" << std::endl;
-         isGettingOutOfPenaltyBox = false;
+         std::cout << m_players[m_currentPlayer] << " is not getting out of the penalty box" << std::endl;
+         m_isGettingOutOfPenaltyBox = false;
       }
    }
    else
    {
 
-      places[currentPlayer] = places[currentPlayer] + roll;
-      if (places[currentPlayer] > 11)
-         places[currentPlayer] = places[currentPlayer] - 12;
+      m_places[m_currentPlayer] = m_places[m_currentPlayer] + roll;
+      if (m_places[m_currentPlayer] > 11)
+         m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
 
-      std::cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << std::endl;
+      std::cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << std::endl;
       std::cout << "The category is " << categoryToString(currentCategory()) << std::endl;
       this->m_questionnaire.askQuestion(currentCategory());
    }
@@ -86,7 +86,7 @@ void Game::roll(int roll)
 
 Category Game::currentCategory()
 {
-   switch (places[currentPlayer] % 4)
+   switch (m_places[m_currentPlayer] % 4)
    {
    case 0:
       return Category::pop;
@@ -96,20 +96,22 @@ Category Game::currentCategory()
       return Category::sports;
    case 3:
       return Category::rock;
+   default:
+      throw "invalid category";
    }
 }
 
 bool Game::wasCorrectlyAnswered()
 {
-   if (inPenaltyBox[currentPlayer])
+   if (m_inPenaltyBox[m_currentPlayer])
    {
-      if (isGettingOutOfPenaltyBox)
+      if (m_isGettingOutOfPenaltyBox)
       {
          std::cout << "Answer was correct!!!!" << std::endl;
-         purses[currentPlayer]++;
-         std::cout << players[currentPlayer]
+         m_purses[m_currentPlayer]++;
+         std::cout << m_players[m_currentPlayer]
                    << " now has "
-                   << purses[currentPlayer]
+                   << m_purses[m_currentPlayer]
                    << " Gold Coins." << std::endl;
 
          bool winner = didPlayerWin();
@@ -127,10 +129,10 @@ bool Game::wasCorrectlyAnswered()
    {
 
       std::cout << "Answer was corrent!!!!" << std::endl;
-      purses[currentPlayer]++;
-      std::cout << players[currentPlayer]
+      m_purses[m_currentPlayer]++;
+      std::cout << m_players[m_currentPlayer]
                 << " now has "
-                << purses[currentPlayer]
+                << m_purses[m_currentPlayer]
                 << " Gold Coins." << std::endl;
 
       bool winner = didPlayerWin();
@@ -143,16 +145,16 @@ bool Game::wasCorrectlyAnswered()
 
 void Game::determineNextPlayer()
 {
-   currentPlayer++;
-   if (currentPlayer == players.size())
-      currentPlayer = 0;
+   m_currentPlayer++;
+   if (m_currentPlayer == m_players.size())
+      m_currentPlayer = 0;
 }
 
 bool Game::wrongAnswer()
 {
    std::cout << "Question was incorrectly answered" << std::endl;
-   std::cout << players[currentPlayer] + " was sent to the penalty box" << std::endl;
-   inPenaltyBox[currentPlayer] = true;
+   std::cout << m_players[m_currentPlayer] + " was sent to the penalty box" << std::endl;
+   m_inPenaltyBox[m_currentPlayer] = true;
 
    determineNextPlayer();
 
@@ -161,5 +163,5 @@ bool Game::wrongAnswer()
 
 bool Game::didPlayerWin()
 {
-   return !(purses[currentPlayer] == 6);
+   return !(m_purses[m_currentPlayer] == 6);
 }

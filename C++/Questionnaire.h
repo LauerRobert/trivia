@@ -12,7 +12,7 @@ class Questionnaire
 {
 public:
    Questionnaire()
-       : popQuestionIndex(0), scienceQuestionIndex(0), sportsQuestionIndex(0), rockQuestionIndex(0)
+       : m_popQuestionIndex(0), m_scienceQuestionIndex(0), m_sportsQuestionIndex(0), m_rockQuestionIndex(0)
    {
    }
 
@@ -30,24 +30,24 @@ public:
       switch (category)
       {
       case Category::pop:
-         output = "Pop" + output + std::to_string(this->popQuestionIndex++) + '\n';
+         output = "Pop" + output + std::to_string(this->m_popQuestionIndex++) + '\n';
          break;
       case Category::science:
-         output = "Science" + output + std::to_string(this->scienceQuestionIndex++) + '\n';
+         output = "Science" + output + std::to_string(this->m_scienceQuestionIndex++) + '\n';
          break;
       case Category::sports:
-         output = "Sports" + output + std::to_string(this->sportsQuestionIndex++) + '\n';
+         output = "Sports" + output + std::to_string(this->m_sportsQuestionIndex++) + '\n';
          break;
       case Category::rock:
-         output = "Rock" + output + std::to_string(this->rockQuestionIndex++) + '\n';
+         output = "Rock" + output + std::to_string(this->m_rockQuestionIndex++) + '\n';
          break;
       }
 
       std::cout << output;
    }
 
-   int popQuestionIndex;
-   int scienceQuestionIndex;
-   int sportsQuestionIndex;
-   int rockQuestionIndex;
+   int m_popQuestionIndex;
+   int m_scienceQuestionIndex;
+   int m_sportsQuestionIndex;
+   int m_rockQuestionIndex;
 };
