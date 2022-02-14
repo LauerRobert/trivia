@@ -6,7 +6,6 @@
 
 Game::Game() : places{}, purses{}, currentPlayer(0)
 {
-
 }
 
 bool Game::isPlayable()
@@ -31,6 +30,21 @@ int Game::howManyPlayers()
    return players.size();
 }
 
+std::string categoryToString(Category category)
+{
+   switch (category)
+   {
+   case Category::pop:
+      return "Pop";
+   case Category::rock:
+      return "Rock";
+   case Category::science:
+      return "Science";
+   case Category::sports:
+      return "Sports";
+   }
+}
+
 void Game::roll(int roll)
 {
    std::cout << players[currentPlayer] << " is the current player" << std::endl;
@@ -48,8 +62,8 @@ void Game::roll(int roll)
             places[currentPlayer] = places[currentPlayer] - 12;
 
          std::cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << std::endl;
-         std::cout << "The category is " << currentCategory() << std::endl;
-         askQuestion();
+         std::cout << "The category is " << categoryToString(currentCategory()) << std::endl;
+         this->m_questionnaire.askQuestion(currentCategory());
       }
       else
       {
@@ -65,56 +79,32 @@ void Game::roll(int roll)
          places[currentPlayer] = places[currentPlayer] - 12;
 
       std::cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << std::endl;
-      std::cout << "The category is " << currentCategory() << std::endl;
-      askQuestion();
+      std::cout << "The category is " << categoryToString(currentCategory()) << std::endl;
+      this->m_questionnaire.askQuestion(currentCategory());
    }
 }
 
-void Game::askQuestion()
-{
-   if (currentCategory() == "Pop")
-   {
-      std::cout << this->m_questionnaire.popQuestions.front() << std::endl;
-      this->m_questionnaire.popQuestions.pop_front();
-   }
-   if (currentCategory() == "Science")
-   {
-      std::cout << this->m_questionnaire.scienceQuestions.front() << std::endl;
-      this->m_questionnaire.scienceQuestions.pop_front();
-   }
-   if (currentCategory() == "Sports")
-   {
-      std::cout << this->m_questionnaire.sportsQuestions.front() << std::endl;
-      this->m_questionnaire.sportsQuestions.pop_front();
-   }
-   if (currentCategory() == "Rock")
-   {
-      std::cout << this->m_questionnaire.rockQuestions.front() << std::endl;
-      this->m_questionnaire.rockQuestions.pop_front();
-   }
-}
-
-std::string Game::currentCategory()
+Category Game::currentCategory()
 {
    if (places[currentPlayer] == 0)
-      return "Pop";
+      return Category::pop;
    if (places[currentPlayer] == 4)
-      return "Pop";
+      return Category::pop;
    if (places[currentPlayer] == 8)
-      return "Pop";
+      return Category::pop;
    if (places[currentPlayer] == 1)
-      return "Science";
+      return Category::science;
    if (places[currentPlayer] == 5)
-      return "Science";
+      return Category::science;
    if (places[currentPlayer] == 9)
-      return "Science";
+      return Category::science;
    if (places[currentPlayer] == 2)
-      return "Sports";
+      return Category::sports;
    if (places[currentPlayer] == 6)
-      return "Sports";
+      return Category::sports;
    if (places[currentPlayer] == 10)
-      return "Sports";
-   return "Rock";
+      return Category::sports;
+   return Category::rock;
 }
 
 bool Game::wasCorrectlyAnswered()

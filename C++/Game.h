@@ -32,8 +32,7 @@ public:
    void roll(int roll);
 
 private:
-   void askQuestion();
-   std::string currentCategory();
+   Category currentCategory();
 
 public:
    bool wasCorrectlyAnswered();
