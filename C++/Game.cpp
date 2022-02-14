@@ -118,7 +118,7 @@ bool Game::wasCorrectlyAnswered()
    else
    {
 
-      std::cout << "Answer was corrent!!!!" << std::endl;
+      std::cout << "Answer was correct!!!!" << std::endl;
       m_purses[m_currentPlayer]++;
       std::cout << m_players[m_currentPlayer]
                 << " now has "
