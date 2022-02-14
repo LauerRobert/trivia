@@ -39,9 +39,8 @@ void Game::roll(int roll)
    {
       if (roll % 2 != 0)
       {
-         m_isGettingOutOfPenaltyBox = true;
-
          std::cout << m_players[m_currentPlayer] << " is getting out of the penalty box" << std::endl;
+         m_isGettingOutOfPenaltyBox = true;
 
          updatePosition(roll);
          this->m_questionnaire.askQuestion(currentCategory());
@@ -85,6 +84,13 @@ Category Game::currentCategory()
    }
 }
 
+void Game::determineNextPlayer()
+{
+   m_currentPlayer++;
+   if (m_currentPlayer == m_players.size())
+      m_currentPlayer = 0;
+}
+
 bool Game::wasCorrectlyAnswered()
 {
    if (m_inPenaltyBox[m_currentPlayer])
@@ -125,13 +131,6 @@ bool Game::wasCorrectlyAnswered()
 
       return winner;
    }
-}
-
-void Game::determineNextPlayer()
-{
-   m_currentPlayer++;
-   if (m_currentPlayer == m_players.size())
-      m_currentPlayer = 0;
 }
 
 bool Game::wrongAnswer()
