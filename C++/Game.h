@@ -32,6 +32,7 @@ public:
    void roll(int roll);
 
    bool wasCorrectlyAnswered();
+   void handleCorrectAnswer();
    bool wrongAnswer();
 
 private:

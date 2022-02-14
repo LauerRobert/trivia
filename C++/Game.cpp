@@ -97,12 +97,7 @@ bool Game::wasCorrectlyAnswered()
    {
       if (m_isGettingOutOfPenaltyBox)
       {
-         std::cout << "Answer was correct!!!!" << std::endl;
-         m_purses[m_currentPlayer]++;
-         std::cout << m_players[m_currentPlayer]
-                   << " now has "
-                   << m_purses[m_currentPlayer]
-                   << " Gold Coins." << std::endl;
+         handleCorrectAnswer();
 
          bool winner = didPlayerWin();
 
@@ -117,13 +112,7 @@ bool Game::wasCorrectlyAnswered()
    }
    else
    {
-
-      std::cout << "Answer was correct!!!!" << std::endl;
-      m_purses[m_currentPlayer]++;
-      std::cout << m_players[m_currentPlayer]
-                << " now has "
-                << m_purses[m_currentPlayer]
-                << " Gold Coins." << std::endl;
+      handleCorrectAnswer();
 
       bool winner = didPlayerWin();
 
@@ -131,6 +120,16 @@ bool Game::wasCorrectlyAnswered()
 
       return winner;
    }
+}
+
+void Game::handleCorrectAnswer()
+{
+   m_purses[m_currentPlayer]++;
+   std::cout << "Answer was correct!!!!" << std::endl;
+   std::cout << m_players[m_currentPlayer]
+             << " now has "
+             << m_purses[m_currentPlayer]
+             << " Gold Coins." << std::endl;
 }
 
 bool Game::wrongAnswer()
