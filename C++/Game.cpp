@@ -86,25 +86,17 @@ void Game::roll(int roll)
 
 Category Game::currentCategory()
 {
-   if (places[currentPlayer] == 0)
+   switch (places[currentPlayer] % 4)
+   {
+   case 0:
       return Category::pop;
-   if (places[currentPlayer] == 4)
-      return Category::pop;
-   if (places[currentPlayer] == 8)
-      return Category::pop;
-   if (places[currentPlayer] == 1)
+   case 1:
       return Category::science;
-   if (places[currentPlayer] == 5)
-      return Category::science;
-   if (places[currentPlayer] == 9)
-      return Category::science;
-   if (places[currentPlayer] == 2)
+   case 2:
       return Category::sports;
-   if (places[currentPlayer] == 6)
-      return Category::sports;
-   if (places[currentPlayer] == 10)
-      return Category::sports;
-   return Category::rock;
+   case 3:
+      return Category::rock;
+   }
 }
 
 bool Game::wasCorrectlyAnswered()
