@@ -25,20 +25,17 @@ private:
 
 public:
    Game();
+
    bool isPlayable();
    bool add(std::string playerName);
-
    int howManyPlayers();
    void roll(int roll);
 
-private:
-   Category currentCategory();
-
-public:
    bool wasCorrectlyAnswered();
    bool wrongAnswer();
 
 private:
+   Category currentCategory();
    bool didPlayerWin();
 };
 
