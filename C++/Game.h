@@ -35,6 +35,7 @@ public:
    bool wrongAnswer();
 
 private:
+   void determineNextPlayer();
    Category currentCategory();
    bool didPlayerWin();
 };

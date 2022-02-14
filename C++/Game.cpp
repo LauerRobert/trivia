@@ -113,17 +113,13 @@ bool Game::wasCorrectlyAnswered()
                    << " Gold Coins." << std::endl;
 
          bool winner = didPlayerWin();
-         currentPlayer++;
-         if (currentPlayer == players.size())
-            currentPlayer = 0;
 
+         determineNextPlayer();
          return winner;
       }
       else
       {
-         currentPlayer++;
-         if (currentPlayer == players.size())
-            currentPlayer = 0;
+         determineNextPlayer();
          return true;
       }
    }
@@ -138,12 +134,18 @@ bool Game::wasCorrectlyAnswered()
                 << " Gold Coins." << std::endl;
 
       bool winner = didPlayerWin();
-      currentPlayer++;
-      if (currentPlayer == players.size())
-         currentPlayer = 0;
+
+      determineNextPlayer();
 
       return winner;
    }
+}
+
+void Game::determineNextPlayer()
+{
+   currentPlayer++;
+   if (currentPlayer == players.size())
+      currentPlayer = 0;
 }
 
 bool Game::wrongAnswer()
@@ -152,9 +154,8 @@ bool Game::wrongAnswer()
    std::cout << players[currentPlayer] + " was sent to the penalty box" << std::endl;
    inPenaltyBox[currentPlayer] = true;
 
-   currentPlayer++;
-   if (currentPlayer == players.size())
-      currentPlayer = 0;
+   determineNextPlayer();
+
    return true;
 }
 
