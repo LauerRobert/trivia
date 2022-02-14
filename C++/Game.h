@@ -36,6 +36,7 @@ public:
 
 private:
    void determineNextPlayer();
+   void updatePosition(int roll);
    Category currentCategory();
    bool didPlayerWin();
 };

@@ -26,19 +26,24 @@ public:
    void askQuestion(Category category)
    {
       std::string output = " Question ";
+      std::cout << "The category is ";
 
       switch (category)
       {
       case Category::pop:
+         std::cout << "Pop\n";
          output = "Pop" + output + std::to_string(this->m_popQuestionIndex++) + '\n';
          break;
       case Category::science:
+         std::cout << "Science\n";
          output = "Science" + output + std::to_string(this->m_scienceQuestionIndex++) + '\n';
          break;
       case Category::sports:
+         std::cout << "Sports\n";
          output = "Sports" + output + std::to_string(this->m_sportsQuestionIndex++) + '\n';
          break;
       case Category::rock:
+         std::cout << "Rock\n";
          output = "Rock" + output + std::to_string(this->m_rockQuestionIndex++) + '\n';
          break;
       }

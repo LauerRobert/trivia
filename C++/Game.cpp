@@ -30,21 +30,6 @@ int Game::getPlayerCount()
    return m_players.size();
 }
 
-std::string categoryToString(Category category)
-{
-   switch (category)
-   {
-   case Category::pop:
-      return "Pop";
-   case Category::rock:
-      return "Rock";
-   case Category::science:
-      return "Science";
-   case Category::sports:
-      return "Sports";
-   }
-}
-
 void Game::roll(int roll)
 {
    std::cout << m_players[m_currentPlayer] << " is the current player" << std::endl;
@@ -57,12 +42,8 @@ void Game::roll(int roll)
          m_isGettingOutOfPenaltyBox = true;
 
          std::cout << m_players[m_currentPlayer] << " is getting out of the penalty box" << std::endl;
-         m_places[m_currentPlayer] = m_places[m_currentPlayer] + roll;
-         if (m_places[m_currentPlayer] > 11)
-            m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
 
-         std::cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << std::endl;
-         std::cout << "The category is " << categoryToString(currentCategory()) << std::endl;
+         updatePosition(roll);
          this->m_questionnaire.askQuestion(currentCategory());
       }
       else
@@ -73,15 +54,18 @@ void Game::roll(int roll)
    }
    else
    {
-
-      m_places[m_currentPlayer] = m_places[m_currentPlayer] + roll;
-      if (m_places[m_currentPlayer] > 11)
-         m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
-
-      std::cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << std::endl;
-      std::cout << "The category is " << categoryToString(currentCategory()) << std::endl;
+      updatePosition(roll);
       this->m_questionnaire.askQuestion(currentCategory());
    }
+}
+
+void Game::updatePosition(int roll)
+{
+   m_places[m_currentPlayer] = m_places[m_currentPlayer] + roll;
+   if (m_places[m_currentPlayer] > 11)
+      m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
+
+   std::cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << std::endl;
 }
 
 Category Game::currentCategory()
