@@ -7,7 +7,6 @@
          "command": "C:\\Program Files\\LLVM\\bin\\clang++.exe",
          "args": [
             "-std=c++17",
-            "-stdlib=libc++",
             "-fdiagnostics-color=always",
             "-g",
             "**.cpp",

@@ -23,3 +23,5 @@ if (result is True):
 else:
     subprocess.call(["C:/Program Files/Beyond Compare 4/BCompare.exe", goldMaster, goldMasterComparator])
 os.remove(executable)
+os.remove(executable[:len(executable) - 3] + "ilk")
+os.remove(executable[:len(executable) - 3] + "pdb")
