@@ -1,4 +1,5 @@
 ﻿#include <ctime>
+#include <iostream>
 #include <stdlib.h>
 
 #include "Game.h"
@@ -18,8 +19,8 @@ void runGame(int seed)
 
       int roll = aGame.roll();
 
-      bool isPlayerOutOfPenaltyBox = !aGame.checkIfPlayerIsInPenaltyBox(roll);
-      if (isPlayerOutOfPenaltyBox)
+      bool isFree = !aGame.checkIfPlayerIsInPenaltyBox(roll);
+      if (isFree)
       {
          aGame.updatePosition(roll);
          aGame.askQuestion(aGame.currentCategory());
