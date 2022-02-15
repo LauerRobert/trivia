@@ -10,7 +10,7 @@ Game::Game(int seed) : m_currentPlayer(0), m_hasNoWinner(true)
 
 void Game::play()
 {
-   bool isPlayable = checkWhetherGameIsPlayable();
+   bool isPlayable = checkPlayability();
    if (isPlayable)
    {
       do
@@ -20,7 +20,7 @@ void Game::play()
    }
 }
 
-bool Game::checkWhetherGameIsPlayable() const
+bool Game::checkPlayability() const
 {
    return (getPlayerCount() >= 2);
 }

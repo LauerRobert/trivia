@@ -18,7 +18,7 @@ public:
 
 private:
    void playNextRound();
-   bool checkWhetherGameIsPlayable() const;
+   bool checkPlayability() const;
    std::string getCurrentPlayersName() const;
    int rollDie() const;
    bool checkIfPlayerIsInPenaltyBox(const int &) const;
