@@ -30,7 +30,8 @@ public:
 
    int roll();
    bool checkIfPlayerIsInPenaltyBox(int roll);
-   void askQuestion(Category category);
+   void askQuestion();
+   std::string getNextQuestion(Category category);
    bool checkAnswer();
 
    void answerQuestion();

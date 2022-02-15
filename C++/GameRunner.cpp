@@ -1,6 +1,5 @@
-﻿#include <ctime>
-#include <iostream>
-#include <stdlib.h>
+﻿#include <iostream>
+#include <string>
 
 #include "Game.h"
 
@@ -23,7 +22,7 @@ void runGame(int seed)
       if (isFree)
       {
          aGame.updatePosition(roll);
-         aGame.askQuestion(aGame.currentCategory());
+         aGame.askQuestion();
          aGame.answerQuestion();
          isWinner = aGame.didPlayerWin();
       }

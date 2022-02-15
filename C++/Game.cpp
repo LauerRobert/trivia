@@ -1,6 +1,5 @@
 ﻿#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <string>
 
 #include "Game.h"
 
@@ -72,32 +71,55 @@ void Game::updatePosition(int roll)
    std::cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << std::endl;
 }
 
-void Game::askQuestion(Category category)
+void Game::askQuestion()
 {
    std::string output = " Question ";
    std::cout << "The category is ";
 
+   Category category = currentCategory();
    switch (category)
    {
    case Category::pop:
       std::cout << "Pop\n";
-      output = "Pop" + output + std::to_string(this->m_questionnaire.m_popQuestionIndex++) + '\n';
+      output = "Pop" + output + getNextQuestion(Category::pop) + '\n';
       break;
    case Category::science:
       std::cout << "Science\n";
-      output = "Science" + output + std::to_string(this->m_questionnaire.m_scienceQuestionIndex++) + '\n';
+      output = "Science" + output + getNextQuestion(Category::science) + '\n';
       break;
    case Category::sports:
       std::cout << "Sports\n";
-      output = "Sports" + output + std::to_string(this->m_questionnaire.m_sportsQuestionIndex++) + '\n';
+      output = "Sports" + output + getNextQuestion(Category::sports) + '\n';
       break;
    case Category::rock:
       std::cout << "Rock\n";
-      output = "Rock" + output + std::to_string(this->m_questionnaire.m_rockQuestionIndex++) + '\n';
+      output = "Rock" + output + getNextQuestion(Category::rock) + '\n';
       break;
    }
 
    std::cout << output;
+}
+
+std::string Game::getNextQuestion(Category category)
+{
+   std::string nextQuestion;
+   switch (category)
+   {
+   case Category::pop:
+      nextQuestion = std::to_string(this->m_questionnaire.m_popQuestionIndex++);
+      break;
+   case Category::science:
+      nextQuestion = std::to_string(this->m_questionnaire.m_scienceQuestionIndex++);
+      break;
+   case Category::sports:
+      nextQuestion = std::to_string(this->m_questionnaire.m_sportsQuestionIndex++);
+      break;
+   case Category::rock:
+      nextQuestion = std::to_string(this->m_questionnaire.m_rockQuestionIndex++);
+      break;
+   }
+
+   return nextQuestion;
 }
 
 Category Game::currentCategory()
