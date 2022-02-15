@@ -4,8 +4,9 @@
 
 #include "Game.h"
 
-Game::Game() : m_places{}, m_purses{}, m_currentPlayer(0)
+Game::Game(int seed) : m_places{}, m_purses{}, m_currentPlayer(0)
 {
+   srand(seed);
 }
 
 bool Game::isPlayable()
@@ -16,12 +17,12 @@ bool Game::isPlayable()
 bool Game::add(std::string playerName)
 {
    m_players.push_back(playerName);
-   m_places[getPlayerCount()] = 0;
-   m_purses[getPlayerCount()] = 0;
-   m_inPenaltyBox[getPlayerCount()] = false;
+   m_places[getPlayerCount() - 1] = 0;
+   m_purses[getPlayerCount() - 1] = 0;
+   m_inPenaltyBox[getPlayerCount() - 1] = false;
 
    std::cout << playerName << " was added" << std::endl;
-   std::cout << "They are player number " << m_players.size() << std::endl;
+   std::cout << "They are player number " << getPlayerCount() << std::endl;
    return true;
 }
 
@@ -30,32 +31,31 @@ int Game::getPlayerCount()
    return m_players.size();
 }
 
-void Game::roll(int roll)
+bool Game::checkIfPlayerIsInPenaltyBox(int roll)
 {
-   std::cout << m_players[m_currentPlayer] << " is the current player" << std::endl;
-   std::cout << "They have rolled a " << roll << std::endl;
-
    if (m_inPenaltyBox[m_currentPlayer])
    {
       if (roll % 2 != 0)
       {
          std::cout << m_players[m_currentPlayer] << " is getting out of the penalty box" << std::endl;
-         m_isGettingOutOfPenaltyBox = true;
-
-         updatePosition(roll);
-         this->m_questionnaire.askQuestion(currentCategory());
+         return false;
       }
       else
       {
          std::cout << m_players[m_currentPlayer] << " is not getting out of the penalty box" << std::endl;
-         m_isGettingOutOfPenaltyBox = false;
+         return true;
       }
    }
-   else
-   {
-      updatePosition(roll);
-      this->m_questionnaire.askQuestion(currentCategory());
-   }
+
+   return false;
+}
+
+int Game::roll()
+{
+   int roll = rand() % 5 + 1;
+   std::cout << "They have rolled a " << roll << std::endl;
+
+   return roll;
 }
 
 void Game::updatePosition(int roll)
@@ -91,39 +91,27 @@ void Game::determineNextPlayer()
       m_currentPlayer = 0;
 }
 
-bool Game::wasCorrectlyAnswered()
+bool Game::checkAnswer()
 {
-   if (m_inPenaltyBox[m_currentPlayer])
+   return rand() % 9 != 7;
+}
+
+void Game::answerQuestion()
+{
+   bool isAnswerCorrect = checkAnswer();
+   if (isAnswerCorrect)
    {
-      if (m_isGettingOutOfPenaltyBox)
-      {
-         handleCorrectAnswer();
-
-         bool winner = didPlayerWin();
-
-         determineNextPlayer();
-         return winner;
-      }
-      else
-      {
-         determineNextPlayer();
-         return true;
-      }
+      handleCorrectAnswer();
    }
    else
    {
-      handleCorrectAnswer();
-
-      bool winner = didPlayerWin();
-
-      determineNextPlayer();
-
-      return winner;
+      handleWrongAnswer();
    }
 }
 
 void Game::handleCorrectAnswer()
 {
+
    m_purses[m_currentPlayer]++;
    std::cout << "Answer was correct!!!!" << std::endl;
    std::cout << m_players[m_currentPlayer]
@@ -132,18 +120,14 @@ void Game::handleCorrectAnswer()
              << " Gold Coins." << std::endl;
 }
 
-bool Game::wrongAnswer()
+void Game::handleWrongAnswer()
 {
    std::cout << "Question was incorrectly answered" << std::endl;
    std::cout << m_players[m_currentPlayer] + " was sent to the penalty box" << std::endl;
    m_inPenaltyBox[m_currentPlayer] = true;
-
-   determineNextPlayer();
-
-   return true;
 }
 
 bool Game::didPlayerWin()
 {
-   return !(m_purses[m_currentPlayer] == 6);
+   return (m_purses[m_currentPlayer] == 6);
 }

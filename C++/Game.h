@@ -9,9 +9,9 @@
 
 class Game
 {
-
-private:
+public:
    std::vector<std::string> m_players;
+   unsigned int m_currentPlayer;
 
    int m_places[6];
    int m_purses[6];
@@ -20,22 +20,23 @@ private:
 
    Questionnaire m_questionnaire;
 
-   unsigned int m_currentPlayer;
    bool m_isGettingOutOfPenaltyBox;
 
 public:
-   Game();
+   Game(int seed);
 
    bool isPlayable();
    bool add(std::string playerName);
    int getPlayerCount();
-   void roll(int roll);
 
-   bool wasCorrectlyAnswered();
+   int roll();
+   bool checkIfPlayerIsInPenaltyBox(int roll);
+   bool checkAnswer();
+
+   void answerQuestion();
    void handleCorrectAnswer();
-   bool wrongAnswer();
+   void handleWrongAnswer();
 
-private:
    void determineNextPlayer();
    void updatePosition(int roll);
    Category currentCategory();

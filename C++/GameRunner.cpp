@@ -3,12 +3,10 @@
 
 #include "Game.h"
 
-static bool notAWinner;
-
 void runGame(int seed)
 {
-   srand(seed);
-   Game aGame;
+   Game aGame(seed);
+   bool isWinner{false};
 
    aGame.add("Chet");
    aGame.add("Pat");
@@ -16,18 +14,22 @@ void runGame(int seed)
 
    do
    {
+      std::cout << aGame.m_players[aGame.m_currentPlayer] << " is the current player" << std::endl;
 
-      aGame.roll(rand() % 5 + 1);
+      int roll = aGame.roll();
 
-      if (rand() % 9 == 7)
+      bool isPlayerOutOfPenaltyBox = !aGame.checkIfPlayerIsInPenaltyBox(roll);
+      if (isPlayerOutOfPenaltyBox)
       {
-         notAWinner = aGame.wrongAnswer();
+         aGame.updatePosition(roll);
+         aGame.m_questionnaire.askQuestion(aGame.currentCategory());
+         aGame.answerQuestion();
+         isWinner = aGame.didPlayerWin();
       }
-      else
-      {
-         notAWinner = aGame.wasCorrectlyAnswered();
-      }
-   } while (notAWinner);
+
+      aGame.determineNextPlayer();
+
+   } while (!isWinner);
 }
 
 int main(int argc, char *argv[])
