@@ -20,7 +20,7 @@ void Game::play()
    }
 }
 
-bool Game::checkWhetherGameIsPlayable()
+bool Game::checkWhetherGameIsPlayable() const
 {
    return (getPlayerCount() >= 2);
 }
@@ -42,12 +42,12 @@ void Game::playNextRound()
    determineNextPlayer();
 }
 
-std::string Game::getCurrentPlayersName()
+std::string Game::getCurrentPlayersName() const
 {
    return m_players[m_currentPlayer].m_name;
 }
 
-bool Game::addPlayer(std::string playerName)
+bool Game::addPlayer(const std::string &playerName)
 {
    m_players.push_back({playerName});
 
@@ -56,12 +56,12 @@ bool Game::addPlayer(std::string playerName)
    return true;
 }
 
-int Game::getPlayerCount()
+int Game::getPlayerCount() const
 {
    return m_players.size();
 }
 
-bool Game::checkIfPlayerIsInPenaltyBox(int dieValue)
+bool Game::checkIfPlayerIsInPenaltyBox(const int &dieValue) const
 {
    if (m_players[m_currentPlayer].m_isInPenaltyBox)
    {
@@ -80,7 +80,7 @@ bool Game::checkIfPlayerIsInPenaltyBox(int dieValue)
    return false;
 }
 
-int Game::rollDie()
+int Game::rollDie() const
 {
    int dieValue = rand() % 5 + 1;
    std::cout << "They have rolled a " << dieValue << std::endl;
@@ -88,7 +88,7 @@ int Game::rollDie()
    return dieValue;
 }
 
-void Game::updatePosition(int dieValue)
+void Game::updatePosition(const int &dieValue)
 {
    m_players[m_currentPlayer].m_position = m_players[m_currentPlayer].m_position + dieValue;
    if (m_players[m_currentPlayer].m_position > 11)
@@ -102,7 +102,7 @@ void Game::askQuestion()
    std::string output = " Question ";
    std::cout << "The category is ";
 
-   Category category = currentCategory();
+   Category category = getCurrentCategory();
    switch (category)
    {
    case Category::pop:
@@ -126,7 +126,7 @@ void Game::askQuestion()
    std::cout << output;
 }
 
-std::string Game::getNextQuestion(Category category)
+std::string Game::getNextQuestion(const Category &category)
 {
    std::string nextQuestion;
    switch (category)
@@ -148,7 +148,7 @@ std::string Game::getNextQuestion(Category category)
    return nextQuestion;
 }
 
-Category Game::currentCategory()
+Category Game::getCurrentCategory() const
 {
    switch (m_players[m_currentPlayer].m_position % 4)
    {
@@ -172,7 +172,7 @@ void Game::determineNextPlayer()
       m_currentPlayer = 0;
 }
 
-bool Game::checkAnswer()
+bool Game::checkAnswer() const
 {
    return rand() % 9 != 7;
 }

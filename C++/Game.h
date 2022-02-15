@@ -11,28 +11,28 @@ class Game
 public:
    Game(int seed = 0);
 
-   bool addPlayer(std::string playerName);
+   bool addPlayer(const std::string &playerName);
    void play();
 
    bool m_hasNoWinner;
 
 private:
    void playNextRound();
-   bool checkWhetherGameIsPlayable();
-   std::string getCurrentPlayersName();
-   int rollDie();
-   bool checkIfPlayerIsInPenaltyBox(int roll);
-   void updatePosition(int roll);
+   bool checkWhetherGameIsPlayable() const;
+   std::string getCurrentPlayersName() const;
+   int rollDie() const;
+   bool checkIfPlayerIsInPenaltyBox(const int &) const;
+   void updatePosition(const int &);
    void askQuestion();
    void answerQuestion();
    void determineNextPlayer();
-   std::string getNextQuestion(Category category);
-   bool checkAnswer();
+   std::string getNextQuestion(const Category &category);
+   bool checkAnswer() const;
    void handleCorrectAnswer();
    void handleWrongAnswer();
-   Category currentCategory();
+   Category getCurrentCategory() const;
    void checkWhetherPlayerWon();
-   int getPlayerCount();
+   int getPlayerCount() const;
 
    std::vector<Player> m_players;
    unsigned int m_currentPlayer;
