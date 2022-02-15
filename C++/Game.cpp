@@ -8,9 +8,38 @@ Game::Game(int seed) : m_currentPlayer(0), m_hasNoWinner(true)
    srand(seed);
 }
 
+void Game::play()
+{
+   bool isPlayable = checkWhetherGameIsPlayable();
+   if (isPlayable)
+   {
+      do
+      {
+         playNextRound();
+      } while (m_hasNoWinner);
+   }
+}
+
 bool Game::checkWhetherGameIsPlayable()
 {
    return (getPlayerCount() >= 2);
+}
+
+void Game::playNextRound()
+{
+   std::cout << getCurrentPlayersName() << " is the current player" << std::endl;
+
+   int dieValue = rollDie();
+
+   bool isFree = !checkIfPlayerIsInPenaltyBox(dieValue);
+   if (isFree)
+   {
+      updatePosition(dieValue);
+      askQuestion();
+      answerQuestion();
+   }
+
+   determineNextPlayer();
 }
 
 std::string Game::getCurrentPlayersName()
@@ -32,11 +61,11 @@ int Game::getPlayerCount()
    return m_players.size();
 }
 
-bool Game::checkIfPlayerIsInPenaltyBox(int roll)
+bool Game::checkIfPlayerIsInPenaltyBox(int dieValue)
 {
    if (m_players[m_currentPlayer].m_isInPenaltyBox)
    {
-      if (roll % 2 != 0)
+      if (dieValue % 2 != 0)
       {
          std::cout << m_players[m_currentPlayer].m_name << " is getting out of the penalty box" << std::endl;
          return false;
@@ -51,17 +80,17 @@ bool Game::checkIfPlayerIsInPenaltyBox(int roll)
    return false;
 }
 
-int Game::roll()
+int Game::rollDie()
 {
-   int roll = rand() % 5 + 1;
-   std::cout << "They have rolled a " << roll << std::endl;
+   int dieValue = rand() % 5 + 1;
+   std::cout << "They have rolled a " << dieValue << std::endl;
 
-   return roll;
+   return dieValue;
 }
 
-void Game::updatePosition(int roll)
+void Game::updatePosition(int dieValue)
 {
-   m_players[m_currentPlayer].m_position = m_players[m_currentPlayer].m_position + roll;
+   m_players[m_currentPlayer].m_position = m_players[m_currentPlayer].m_position + dieValue;
    if (m_players[m_currentPlayer].m_position > 11)
       m_players[m_currentPlayer].m_position = m_players[m_currentPlayer].m_position - 12;
 

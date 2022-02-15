@@ -11,27 +11,7 @@ void runGame(int seed)
    aGame.addPlayer("Pat");
    aGame.addPlayer("Sue");
 
-   bool isPlayable = aGame.checkWhetherGameIsPlayable();
-   if (isPlayable)
-   {
-      do
-      {
-         std::cout << aGame.getCurrentPlayersName() << " is the current player" << std::endl;
-
-         int roll = aGame.roll();
-
-         bool isFree = !aGame.checkIfPlayerIsInPenaltyBox(roll);
-         if (isFree)
-         {
-            aGame.updatePosition(roll);
-            aGame.askQuestion();
-            aGame.answerQuestion();
-         }
-
-         aGame.determineNextPlayer();
-
-      } while (aGame.m_hasNoWinner);
-   }
+   aGame.play();
 }
 
 int main(int argc, char *argv[])

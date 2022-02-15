@@ -9,21 +9,23 @@
 class Game
 {
 public:
-   Game(int seed);
+   Game(int seed = 0);
 
-   bool checkWhetherGameIsPlayable();
    bool addPlayer(std::string playerName);
+   void play();
+
+   bool m_hasNoWinner;
+
+private:
+   void playNextRound();
+   bool checkWhetherGameIsPlayable();
    std::string getCurrentPlayersName();
-   int roll();
+   int rollDie();
    bool checkIfPlayerIsInPenaltyBox(int roll);
    void updatePosition(int roll);
    void askQuestion();
    void answerQuestion();
    void determineNextPlayer();
-
-   bool m_hasNoWinner;
-
-private:
    std::string getNextQuestion(Category category);
    bool checkAnswer();
    void handleCorrectAnswer();
