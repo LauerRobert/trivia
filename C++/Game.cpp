@@ -3,12 +3,12 @@
 
 #include "Game.h"
 
-Game::Game(int seed) : m_places{}, m_purses{}, m_currentPlayer(0)
+Game::Game(int seed) : m_places{}, m_purses{}, m_currentPlayer(0), m_hasNoWinner(true)
 {
    srand(seed);
 }
 
-bool Game::isPlayable()
+bool Game::checkWhetherGameIsPlayable()
 {
    return (getPlayerCount() >= 2);
 }
@@ -168,6 +168,9 @@ void Game::handleCorrectAnswer()
 {
 
    m_purses[m_currentPlayer]++;
+
+   checkWhetherPlayerWon();
+
    std::cout << "Answer was correct!!!!" << std::endl;
    std::cout << m_players[m_currentPlayer]
              << " now has "
@@ -182,7 +185,10 @@ void Game::handleWrongAnswer()
    m_inPenaltyBox[m_currentPlayer] = true;
 }
 
-bool Game::didPlayerWin()
+void Game::checkWhetherPlayerWon()
 {
-   return (m_purses[m_currentPlayer] == 6);
+   if (m_purses[m_currentPlayer] == 6)
+   {
+      m_hasNoWinner = false;
+   }
 }

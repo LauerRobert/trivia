@@ -20,10 +20,12 @@ public:
 
    bool m_isGettingOutOfPenaltyBox;
 
+   bool m_hasNoWinner;
+
 public:
    Game(int seed);
 
-   bool isPlayable();
+   bool checkWhetherGameIsPlayable();
    bool addPlayer(std::string playerName);
    std::string getCurrentPlayersName();
    int getPlayerCount();
@@ -41,7 +43,9 @@ public:
    void determineNextPlayer();
    void updatePosition(int roll);
    Category currentCategory();
-   bool didPlayerWin();
+   void checkWhetherPlayerWon();
+
+private:
 };
 
 #endif /* GAME_H_ */

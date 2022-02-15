@@ -6,30 +6,32 @@
 void runGame(int seed)
 {
    Game aGame(seed);
-   bool isWinner{false};
 
    aGame.addPlayer("Chet");
    aGame.addPlayer("Pat");
    aGame.addPlayer("Sue");
 
-   do
+   bool isPlayable = aGame.checkWhetherGameIsPlayable();
+   if (isPlayable)
    {
-      std::cout << aGame.getCurrentPlayersName() << " is the current player" << std::endl;
-
-      int roll = aGame.roll();
-
-      bool isFree = !aGame.checkIfPlayerIsInPenaltyBox(roll);
-      if (isFree)
+      do
       {
-         aGame.updatePosition(roll);
-         aGame.askQuestion();
-         aGame.answerQuestion();
-         isWinner = aGame.didPlayerWin();
-      }
+         std::cout << aGame.getCurrentPlayersName() << " is the current player" << std::endl;
 
-      aGame.determineNextPlayer();
+         int roll = aGame.roll();
 
-   } while (!isWinner);
+         bool isFree = !aGame.checkIfPlayerIsInPenaltyBox(roll);
+         if (isFree)
+         {
+            aGame.updatePosition(roll);
+            aGame.askQuestion();
+            aGame.answerQuestion();
+         }
+
+         aGame.determineNextPlayer();
+
+      } while (aGame.m_hasNoWinner);
+   }
 }
 
 int main(int argc, char *argv[])
