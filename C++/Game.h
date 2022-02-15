@@ -1,5 +1,6 @@
 #include <vector>
 
+#include "Player.h"
 #include "Questionnaire.h"
 
 #ifndef GAME_H_
@@ -8,13 +9,8 @@
 class Game
 {
 public:
-   std::vector<std::string> m_players;
+   std::vector<Player> m_players;
    unsigned int m_currentPlayer;
-
-   int m_places[6];
-   int m_purses[6];
-
-   bool m_inPenaltyBox[6];
 
    Questionnaire m_questionnaire;
 

@@ -2,13 +2,14 @@ class Player
 {
 public:
    Player(std::string name)
-      : m_isInPenaltyBox(false), m_position(0), m_score(0), m_name(name)
-   {}
+       : m_name(name), m_position(0), m_isInPenaltyBox(false), m_score(0)
+   {
+   }
 
-   bool m_isInPenaltyBox;
-   int m_position;
-   int m_score;
    std::string m_name;
+   int m_position;
+   bool m_isInPenaltyBox;
+   int m_score;
 
 private:
 };
