@@ -26,7 +26,7 @@ public:
    Game(int seed);
 
    bool isPlayable();
-   bool add(std::string playerName);
+   bool addPlayer(std::string playerName);
    int getPlayerCount();
 
    int roll();

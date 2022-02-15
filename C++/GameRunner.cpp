@@ -8,9 +8,9 @@ void runGame(int seed)
    Game aGame(seed);
    bool isWinner{false};
 
-   aGame.add("Chet");
-   aGame.add("Pat");
-   aGame.add("Sue");
+   aGame.addPlayer("Chet");
+   aGame.addPlayer("Pat");
+   aGame.addPlayer("Sue");
 
    do
    {

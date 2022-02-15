@@ -14,7 +14,7 @@ bool Game::isPlayable()
    return (getPlayerCount() >= 2);
 }
 
-bool Game::add(std::string playerName)
+bool Game::addPlayer(std::string playerName)
 {
    m_players.push_back(playerName);
    m_places[getPlayerCount() - 1] = 0;
