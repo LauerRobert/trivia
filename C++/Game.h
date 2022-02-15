@@ -27,10 +27,12 @@ public:
 
    bool isPlayable();
    bool addPlayer(std::string playerName);
+   std::string getCurrentPlayersName();
    int getPlayerCount();
 
    int roll();
    bool checkIfPlayerIsInPenaltyBox(int roll);
+   void askQuestion(Category category);
    bool checkAnswer();
 
    void answerQuestion();

@@ -14,7 +14,7 @@ void runGame(int seed)
 
    do
    {
-      std::cout << aGame.m_players[aGame.m_currentPlayer] << " is the current player" << std::endl;
+      std::cout << aGame.getCurrentPlayersName() << " is the current player" << std::endl;
 
       int roll = aGame.roll();
 
@@ -22,7 +22,7 @@ void runGame(int seed)
       if (isPlayerOutOfPenaltyBox)
       {
          aGame.updatePosition(roll);
-         aGame.m_questionnaire.askQuestion(aGame.currentCategory());
+         aGame.askQuestion(aGame.currentCategory());
          aGame.answerQuestion();
          isWinner = aGame.didPlayerWin();
       }

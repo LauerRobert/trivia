@@ -14,6 +14,11 @@ bool Game::isPlayable()
    return (getPlayerCount() >= 2);
 }
 
+std::string Game::getCurrentPlayersName()
+{
+   return m_players[m_currentPlayer];
+}
+
 bool Game::addPlayer(std::string playerName)
 {
    m_players.push_back(playerName);
@@ -65,6 +70,34 @@ void Game::updatePosition(int roll)
       m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
 
    std::cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << std::endl;
+}
+
+void Game::askQuestion(Category category)
+{
+   std::string output = " Question ";
+   std::cout << "The category is ";
+
+   switch (category)
+   {
+   case Category::pop:
+      std::cout << "Pop\n";
+      output = "Pop" + output + std::to_string(this->m_questionnaire.m_popQuestionIndex++) + '\n';
+      break;
+   case Category::science:
+      std::cout << "Science\n";
+      output = "Science" + output + std::to_string(this->m_questionnaire.m_scienceQuestionIndex++) + '\n';
+      break;
+   case Category::sports:
+      std::cout << "Sports\n";
+      output = "Sports" + output + std::to_string(this->m_questionnaire.m_sportsQuestionIndex++) + '\n';
+      break;
+   case Category::rock:
+      std::cout << "Rock\n";
+      output = "Rock" + output + std::to_string(this->m_questionnaire.m_rockQuestionIndex++) + '\n';
+      break;
+   }
+
+   std::cout << output;
 }
 
 Category Game::currentCategory()
