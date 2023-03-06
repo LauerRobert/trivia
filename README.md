@@ -1,5 +1,3 @@
-
-
 Legacy Code Retreat code base
 ======
 
